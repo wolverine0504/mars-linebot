@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  flask-chatbot:
+    container_name: flask-chatbot.pri
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      GCP_PROJECT: "ccs"
+      FIRESTORE_PROJECT_ID: "ccs"
+      FIRESTORE_EMULATOR_HOST: "firestore.pri:8080"
+      FIRESTORE_EMULATOR_HOST_PATH: "firestore.pri:8080/firestore"
+      FIRESTORE_HOST: "http://firestore.pri:8080"
+      LINE_CHANNEL_ACCESS_TOKEN: "b8G8ey47k6z9dHyq/LhWolm6VhIj3YXRgvsgaZ7XQRNO0h2olWP2ZVtGY6MCu9jbqiZaxNI9yWqh8hyMaNIMgGzhpPQD8e0qmSZZSrYqHXAJarIUhlIby+z0Vodm8pskfwKQukviFxavUVbhUbEZMwdB04t89/1O/w1cDnyilFU="
+      LINE_CHANNEL_SECRET: "6da52e6a04030c1faf0c76b9dd95d734"
+      PORT: 5000
+    volumes:
+      - .:/app
+  firestore.pri:
+    image: mtlynch/firestore-emulator
+    container_name: "firestore.pri"
+    ports:
+      - "4000:4000"
+    environment:
+      FIRESTORE_PROJECT_ID: "ccs"
+      PORT: "8080"
+  ngrok-temp:
+    image: wernight/ngrok
+    ports:
+      - "4040:4040"
+    command: ngrok http flask-chatbot.pri:5000 -region ap
+    depends_on:
+      - flask-chatbot
