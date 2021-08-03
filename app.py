@@ -32,10 +32,8 @@ from passwordDAO import PasswordDAO
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(
-    'b8G8ey47k6z9dHyq/LhWolm6VhIj3YXRgvsgaZ7XQRNO0h2olWP2ZVtGY6MCu9jbqiZaxNI9yWqh8hyMaNIMgGzhpPQD8e0qmSZZSrYqHXAJarIUhlIby+z0Vodm8pskfwKQukviFxavUVbhUbEZMwdB04t89/1O/w1cDnyilFU='
-)
-handler = WebhookHandler('6da52e6a04030c1faf0c76b9dd95d734')
+line_bot_api = LineBotApi(os.environ.get('LINE_CHANNEL_ACCESS_TOKEN'))
+handler = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
 
 
 #根據passwords excel產生hash字串密碼
