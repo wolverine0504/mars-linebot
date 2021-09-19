@@ -203,18 +203,18 @@ def handle_message(event):
                 group.status = "active"
                 group.group_password = hashed_password
                 group.password_used = True
-                group.last_message = "section=kendo&action=welcome"
+                group.last_message = "section=kendo&action=first_message"
                 group.expected_text = "nothing"
                 GroupDAO.save_group(group)
-                line_bot_api.reply_message(event.reply_token, get_reply_messages("section=kendo&action=welcome"))
+                line_bot_api.reply_message(event.reply_token, get_reply_messages("section=kendo&action=first_message"))
     else:
 
         if msgtxt == "test":
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="testing"))
-        elif msgtxt == '群組資料':
+        elif msgtxt == 'groupData':
             print(group)
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(group)))
-        elif msgtxt == '我沒聽清楚再傳一次':
+        elif msgtxt == '再說一次':
             line_bot_api.reply_message(event.reply_token, get_reply_messages(group.last_message))
         else:
                 response_message=get_response(expected_text,msgtxt)

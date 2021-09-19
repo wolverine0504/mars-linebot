@@ -5,7 +5,7 @@
 
 from group import Group
 from google.cloud import firestore
-from google.auth.credentials import AnonymousCredentials
+# from google.auth.credentials import AnonymousCredentials
 
 class GroupDAO:
     # 上線後要改
@@ -14,11 +14,10 @@ class GroupDAO:
 
     #db = firestore.Client(project='ccs', credentials=AnonymousCredentials())
 
-    # cred = credentials.Certificate("./mars-linebot-serviceAccount.json")
-    # firebase_admin.initialize_app(cred)
-    # db = firestore.client(project=os.environ.get('FIRESTORE_PROJECT_ID'))
 
-    db = firestore.Client(project='ccs',credentials=AnonymousCredentials())
+
+    #db = firestore.Client(project='ccs',credentials=AnonymousCredentials())
+    db = firestore.Client()
     groups_ref = db.collection(u'groups')
 
     # 新增資料時，若有重複資料，則採更新  傳入一個Group object

@@ -5,7 +5,7 @@
 
 from password import Password
 from google.cloud import firestore
-from google.auth.credentials import AnonymousCredentials
+# from google.auth.credentials import AnonymousCredentials
 
 class PasswordDAO:
     # 上線後要改
@@ -14,11 +14,10 @@ class PasswordDAO:
 
     #db = firestore.Client(project='ccs', credentials=AnonymousCredentials())
 
-    # cred = credentials.Certificate("./mars-linebot-serviceAccount.json")
-    # firebase_admin.initialize_app(cred)
-    # db = firestore.client(project=os.environ.get('FIRESTORE_PROJECT_ID'))
 
-    db = firestore.Client(project='ccs',credentials=AnonymousCredentials())
+    #db = firestore.Client(project='ccs',credentials=AnonymousCredentials())
+
+    db=firestore.Client()
     passwords_ref = db.collection(u'passwords')
 
     # 新增資料時，若有重複資料，則採更新  傳入一個password object
